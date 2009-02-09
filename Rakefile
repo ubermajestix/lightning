@@ -26,5 +26,6 @@ PROJ.version = Lightning::VERSION
 PROJ.rubyforge.name = "lightning"
 PROJ.summary = "boom"
 PROJ.spec.opts << '--color'
+PROJ.ignore_file = '.gitignore'
 
 # EOF
