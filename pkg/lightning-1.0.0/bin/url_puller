@@ -1,0 +1,60 @@
+#!/usr/bin/env ruby
+
+require File.expand_path(
+    File.join(File.dirname(__FILE__), %w[.. lib lightning]))
+
+require 'rubygems'
+require 'open-uri'
+require 'fastercsv'
+
+
+  
+  
+  
+  begin
+    gem "main", ">= 2.8.2" # 2.8.2 has a bugfix for the default block for -1 arity arguments
+    require "main"
+  rescue Gem::LoadError
+    STDERR.puts "need the main gem to run url_puller. sudo gem install main"
+  end
+
+  Main do
+
+    description <<-EOS
+      Pull a list of all urls from a given url or file
+    EOS
+
+    examples <<-EOS
+      You can get all urls for a page like this:
+        url_puller http://awesomerails.wordpress.com
+      Or if you want to just pull the baseurl (somedomian.com) pass --base
+        url_puller --base http://awesomerails.wordpress.com
+    EOS
+    
+    option "base" do
+      description "will only retrive unique base urls"
+      attribute
+    end
+    
+      run do
+        puts "pulling base urls for: #{ARGV[0]}" if base
+        puts "pulling all urls for: #{ARGV[0]}" unless base
+        
+        doc = ""
+        open(ARGV[0]){|f|
+             f.each_line {|line| doc << line}
+           }
+        urls = []
+        doc.split.each{|a| a=~ %r(http://([^/"<:]+)/); urls << $1} if base
+        doc.split.each{|a| a=~ %r(http://([^"<:]+)/); urls << $1} unless base
+        urls = urls.compact.uniq
+        if ARGV[0] == "dump_csv"
+        FCSV.open("/urls.csv", 'w') do |csv|
+          urls.each { |u| csv << u }
+        end
+        end
+        puts "found #{urls.length} unique urls"
+        urls.each { |u| puts u }
+      end
+
+    end
