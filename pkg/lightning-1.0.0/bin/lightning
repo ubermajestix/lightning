@@ -3,6 +3,53 @@
 require File.expand_path(
     File.join(File.dirname(__FILE__), %w[.. lib lightning]))
 
-# Put your code here
 
-# EOF
+require 'rubygems'
+require 'open-uri'
+require 'fastercsv'
+
+
+  begin
+    gem "main", ">= 2.8.2" # 2.8.2 has a bugfix for the default block for -1 arity arguments
+    require "main"
+  rescue Gem::LoadError
+    STDERR.puts "need the main gem to run lightning. sudo gem install main"
+  end
+
+  Main do
+
+    description <<-EOS
+      Pulls down posts from an rss feed
+    EOS
+
+    examples <<-EOS
+      You can get all posts for a feed like this:
+        lightning http://awesomerails.wordpress.com/feed
+    EOS
+    
+    option "dump_csv" do
+      description "dumps posts for a csv file"
+      attribute
+    end
+
+    run do
+        posts = Lightning::Parser.parse(:feed=>ARGV[0])
+        if dump_csv
+          write_csv(posts)
+        else
+          posts.each { |post| puts "#{post.published_on}, #{post.title}, #{post.link}, #{post.description}"  }        
+        end
+    end
+
+    def write_csv(posts)
+    # TODO return post.published on as DateTime
+    #  posts.sort!{|a,b| a.published_on <=> b.published_on}
+      FCSV.open("rss_feed_posts.csv", "wb") do |csv|
+        csv << %w"published_on title link description"
+        posts.each do |post|
+          csv << [post.published_on, post.title, post.link, post.description]
+        end
+      end
+    end
+
+  end
