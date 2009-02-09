@@ -15,6 +15,11 @@ describe Lightning::Parser do
      post = Lightning::Parser.parse(:feed=>"#{Dir.pwd}/spec/test_feed.xml", :posts=>1)
      post.should_not be_nil
   end
+  
+  it "should return published_on as Time" do
+      post = Lightning::Parser.parse(:feed=>"#{Dir.pwd}/spec/test_feed.xml", :posts=>1)
+      post.published_on.class.should == Time
+  end
 
   
 

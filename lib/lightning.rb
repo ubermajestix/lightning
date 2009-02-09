@@ -3,6 +3,7 @@ require 'fastercsv'
 require 'yaml'
 require 'xml'
 require 'libxml'
+require 'time'
 module Lightning
 
   # :stopdoc:

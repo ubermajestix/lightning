@@ -20,7 +20,7 @@ module Lightning
           desc = item.find('description').first.content            
           title = item.find('title').first.content
           link = item.find('link').first.content
-          pub_date = item.find('pubDate').first.content
+          pub_date = Time.parse(item.find('pubDate').first.content)
           posts << Lightning::Post.new(:title=>title, :published_on=>pub_date, :link => link, :description => desc, :feed=>feed )
         end
         return posts

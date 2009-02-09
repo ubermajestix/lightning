@@ -14,4 +14,9 @@ describe Lightning::Post do
       post.feed.should == "#{Dir.pwd}/spec/test_feed.xml"
   end
   
+  it "should return published_on as Time" do
+      post = Lightning::Parser.parse(:feed=>"#{Dir.pwd}/spec/test_feed.xml", :posts=>1).first
+      post.published_on.class.should == Time
+  end
+  
 end
