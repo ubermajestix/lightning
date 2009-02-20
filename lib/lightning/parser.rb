@@ -21,7 +21,7 @@ module Lightning
           title = item.find('title').first.content
           link = item.find('link').first.content
           pub_date = Time.parse(item.find('pubDate').first.content)
-          posts << Lightning::Post.new(:title=>title, :published_on=>pub_date, :link => link, :description => desc, :feed=>feed )
+          posts << Lightning::Post.new(:title=>title, :pub_date=>pub_date, :link => link, :description => desc, :feed=>feed )
         end
         return posts
       end
