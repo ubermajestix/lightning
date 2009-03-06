@@ -6,7 +6,7 @@ When you just want content now, boom, you got it.
 ===Installation===
 	You need lib-xml.  It is 300 times faster than REXML. Here's how you install:
 	
-	TODO install instructions for libxml
+	$> sudo gem install libxml-ruby
 
 ===Getting Content===
 	
