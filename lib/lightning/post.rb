@@ -1,12 +1,6 @@
 module Lightning
   class Post
-    attr_accessor :feed
-    attr_accessor :title
-    attr_accessor :link
-    attr_accessor :description
-    attr_accessor :pub_date
-    attr_accessor :thumbnail
-    
+    attr_accessor :feed, :title, :link, :description, :pub_date, :thumbnail, :player         
     
     def initialize(opts={})
       self.title        = opts[:title]
@@ -15,8 +9,8 @@ module Lightning
       self.pub_date     = opts[:pub_date]
       self.feed         = opts[:feed]
       self.thumbnail    = opts[:thumbnail]
-    end
-    
+      self.player       = opts[:player]
+    end           
     
   end
 end

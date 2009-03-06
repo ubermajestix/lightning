@@ -21,8 +21,15 @@ module Lightning
           title = item.find('title').first.content
           link = item.find('link').first.content
           pub_date = Time.parse(item.find('pubDate').first.content)
-          thumbnail = item.find('media:thumbnail').first.attributes[:url] if item.find('media:thumbnail').first
-          posts << Lightning::Post.new(:title=>title, :pub_date=>pub_date, :link => link, :description => desc, :feed=>feed, :thumbnail=>thumbnail )
+          thumbnail = item.find('media:thumbnail').first.attributes[:url] if item.find('media:thumbnail').first  
+          player = item.find('media:player').first.attributes[:url] if item.find('media:player').first  
+          posts << Lightning::Post.new( :title=>title, 
+                                        :pub_date    =>  pub_date, 
+                                        :link        => link, 
+                                        :description => desc, 
+                                        :feed        =>  feed, 
+                                        :thumbnail   =>  thumbnail,
+                                        :player      => player ) 
         end
         return posts
       end
