@@ -1,4 +1,17 @@
-ϞLIGHTNINGϞ
+œûLIGHTNINGœû
+
+This gem is not intended for production use! 
+
+This was created for a one-off project.  It has several issues.
+
+1. It will not parse invalid xml - like a podcast with itunes:xxxx nodes
+2. It will not parse atom feeds
+3. It parses rss fields that only I care about.  It is in no way complete.
+
+Use this gem to learn about the libxml library.
+
+Use FeedZirra (http://github.com/pauldix/feedzirra/tree/master) or Hpricot(http://wiki.github.com/why/hpricot/hpricot-xml) to parse xml/rss.  They are much better than this. 
+
 A fast rss feed parser. 
 
 When you just want content now, boom, you got it. 
